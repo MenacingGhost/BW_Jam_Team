@@ -43,6 +43,7 @@ position = Vector2( 127.95, 160.035 )
 [node name="Camera2D" type="Camera2D" parent="player"]
 current = true
 drag_margin_h_enabled = true
+drag_margin_v_enabled = true
 smoothing_enabled = true
 smoothing_speed = 4.0
 editor_draw_limits = true
@@ -55,6 +56,3 @@ margin_top = -630.0
 margin_right = 2960.0
 margin_bottom = -397.0
 rect_scale = Vector2( -144.698, 5.91109 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
