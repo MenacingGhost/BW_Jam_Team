@@ -24,3 +24,6 @@ shader_param/height_scale = 0.5
 material = SubResource( 2 )
 margin_right = 40.0
 margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -26,11 +26,6 @@ animations = [ {
 "name": "IDLE",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 8 ), ExtResource( 2 ), ExtResource( 1 ) ],
-"loop": true,
-"name": "RUN",
-"speed": 7.0
-}, {
 "frames": [  ],
 "loop": true,
 "name": "ATTACK",
@@ -40,6 +35,11 @@ animations = [ {
 "loop": false,
 "name": "JUMP",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 8 ), ExtResource( 2 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "RUN",
+"speed": 7.0
 } ]
 
 [node name="player" type="KinematicBody2D"]
@@ -53,7 +53,6 @@ shape = SubResource( 1 )
 material = SubResource( 3 )
 frames = SubResource( 2 )
 animation = "IDLE"
-frame = 2
 playing = true
 
 [node name="ground_ray" type="RayCast2D" parent="."]
@@ -63,5 +62,10 @@ cast_to = Vector2( 10, 0 )
 collision_mask = 2
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="Timer1" type="Timer" parent="."]
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="Timer1" to="." method="_on_Timer1_timeout"]
