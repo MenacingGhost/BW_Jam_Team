@@ -92,7 +92,7 @@ cast_to = Vector2( 10, 0 )
 collision_mask = 2
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 500.0
+wait_time = 5.0
 autostart = true
 
 [node name="Timer1" type="Timer" parent="."]
