@@ -114,8 +114,12 @@ func do_physics(delta):
 	
 func handle_movement(var delta):
 	if(!anti_gravity):
+<<<<<<< HEAD
 		$CollisionShape2D.position.y = 8
 <<<<<<< HEAD
+=======
+		$CollisionShape2D.position.y = 10
+>>>>>>> parent of 977429b (Revert "Add files via upload")
 		gravity = 1500
 		ani.flip_v = false
 		
@@ -129,7 +133,7 @@ func handle_movement(var delta):
 	if(is_on_wall()):
 		hSpeed = 0
 		motion.x = 0
-	if(ground_ray.is_colliding()):
+	if(is_on_floor()):
 		jump_counter = 0
 		vSpeed = 0
 		motion.y = 0
@@ -150,10 +154,11 @@ func handle_movement(var delta):
 				if(is_on_ceiling()):
 					ani.play("RUN")
 				
-			if(ground_ray.is_colliding()):
+			if(is_on_floor()):
 				ani.play("RUN")
 		else:
-			if(ground_ray.is_colliding()):
+			
+			if(is_on_floor()):
 				ani.play("RUN")
 	elif(Input.get_joy_axis(0,0) < -0.3 or Input.is_action_pressed("ui_left")):
 		if(hSpeed > 100):
@@ -163,13 +168,15 @@ func handle_movement(var delta):
 		elif(hSpeed > -max_horizontal_speed):
 			hSpeed -= (acceleration * delta)
 			ani.flip_h = true
-			if(ground_ray.is_colliding()):
+			
+			if(is_on_floor()):
 				ani.play("RUN")
 		else:
-			if(ground_ray.is_colliding()):
+			
+			if(is_on_floor()):
 				ani.play("RUN")
 	else:
-		if(ground_ray.is_colliding()):
+		if(is_on_floor()):
 			ani.play("IDLE")
 		if(anti_gravity):
 			if(is_on_ceiling()):
