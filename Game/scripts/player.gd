@@ -17,7 +17,6 @@ var motion = Vector2.ZERO
 var UP : Vector2 = Vector2(0,-1)
 
 onready var ani = $AnimatedSprite
-onready var ground_ray = $ground_ray
 
 var recorded_data = [] # this is our array we update when moving, check when recording
 var is_rewinding = false # we'll use this to disable this object when true. so we can add recorded data to it
@@ -32,18 +31,10 @@ func handle_rewind_function():
 	var dir_number = 0
 
 	if(do_rewind): # DO REWIND
-<<<<<<< HEAD
-		anti_gravity = false
-		is_rewinding = true
-		if(recorded_data.size() > 0):
-			
-			var current_frame = recorded_data[0]
-=======
 		is_rewinding = true
 		if(recorded_data.size() > 0):
 			var current_frame = recorded_data[0]
 			
->>>>>>> parent of 633c5b7 (Delete Game directory)
 			#Set our values to the first frame of the array
 			if(current_frame != null):
 				ani.animation = current_frame[0]
@@ -70,10 +61,6 @@ func handle_rewind_function():
 		recorded_data.push_front([ani.animation,global_position,ani.flip_h])
 		if(recorded_data.size() > rewind_length): #our record is longer than 3 secs, remove last frame
 			recorded_data.pop_back()
-
-			
-		
-			
 
 func _physics_process(delta):
 	handle_rewind_function()
@@ -113,31 +100,10 @@ func do_physics(delta):
 	pass
 	
 func handle_movement(var delta):
-	if(!anti_gravity):
-<<<<<<< HEAD
-<<<<<<< HEAD
-		$CollisionShape2D.position.y = 8
-<<<<<<< HEAD
-=======
-		$CollisionShape2D.position.y = 10
->>>>>>> parent of 977429b (Revert "Add files via upload")
-=======
-		$CollisionShape2D.position.y = 10
->>>>>>> parent of 977429b (Revert "Add files via upload")
-		gravity = 1500
-		ani.flip_v = false
-		
-	else:
-		gravity = -1500
-		ani.flip_v = true
-=======
-	else:
->>>>>>> parent of 633c5b7 (Delete Game directory)
-		$CollisionShape2D.position.y = 3
 	if(is_on_wall()):
 		hSpeed = 0
 		motion.x = 0
-	if(is_on_floor()):
+	if is_on_floor():
 		jump_counter = 0
 		vSpeed = 0
 		motion.y = 0
@@ -158,11 +124,10 @@ func handle_movement(var delta):
 				if(is_on_ceiling()):
 					ani.play("RUN")
 				
-			if(is_on_floor()):
+			if is_on_floor():
 				ani.play("RUN")
 		else:
-			
-			if(is_on_floor()):
+			if is_on_floor():
 				ani.play("RUN")
 	elif(Input.get_joy_axis(0,0) < -0.3 or Input.is_action_pressed("ui_left")):
 		if(hSpeed > 100):
@@ -172,48 +137,41 @@ func handle_movement(var delta):
 		elif(hSpeed > -max_horizontal_speed):
 			hSpeed -= (acceleration * delta)
 			ani.flip_h = true
-			
-			if(is_on_floor()):
+			if is_on_floor():
 				ani.play("RUN")
 		else:
-			
-			if(is_on_floor()):
+			if is_on_floor():
 				ani.play("RUN")
 	else:
-		if(is_on_floor()):
+		if is_on_floor():
 			ani.play("IDLE")
-		if(anti_gravity):
+		if anti_gravity:
 			if(is_on_ceiling()):
 				ani.play("IDLE")
 		hSpeed -= min(abs(hSpeed),current_friction * delta) * sign(hSpeed)
 		
 	
-	if(Input.is_action_just_pressed("ui_accept")) && jump_counter < 2:
-			vSpeed = jump_height
+	if not anti_gravity:
+		if(Input.is_action_just_pressed("ui_accept")) && jump_counter < 2 || Input.is_action_just_pressed("ui_up") and jump_counter < 2:
+				vSpeed = jump_height
+				jump_counter += 1
+	if anti_gravity:
+		if Input.is_action_just_pressed("ui_accept") and jump_counter < 2 and is_on_ceiling() || Input.is_action_just_pressed("ui_up") and jump_counter < 2 and is_on_ceiling():
+			vSpeed = 600
 			jump_counter += 1
-	pass
-
-
 
 func _on_Timer_timeout():
 	do_rewind = true
 
-	
-
 func _on_Norewind_body_entered(body):
 	do_rewind = false
-<<<<<<< HEAD
-	anti_gravity = false
-	print(anti_gravity)
-=======
->>>>>>> parent of 633c5b7 (Delete Game directory)
-
 
 func _on_anti_gravity_boots_body_entered(body):
-	anti_gravity = true
-<<<<<<< HEAD
-	
-=======
-	gravity = -1500
-	ani.flip_v = true
->>>>>>> parent of 633c5b7 (Delete Game directory)
+	if "player" in body.name:
+		anti_gravity = true
+		gravity = -1500
+		ani.flip_v = true
+
+func _on_detector_body_entered(body):
+	if "flying enemy" in body.name:
+		get_tree().reload_current_scene()

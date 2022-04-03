@@ -77,8 +77,3 @@ texture = ExtResource( 1 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -2, -2.5 )
 shape = SubResource( 3 )
-<<<<<<< HEAD
-
-[connection signal="body_entered" from="." to="." method="_on_anti_gravity_boots_body_entered"]
-=======
->>>>>>> parent of 633c5b7 (Delete Game directory)
