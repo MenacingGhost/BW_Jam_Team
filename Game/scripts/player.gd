@@ -115,8 +115,12 @@ func do_physics(delta):
 func handle_movement(var delta):
 	if(!anti_gravity):
 <<<<<<< HEAD
+<<<<<<< HEAD
 		$CollisionShape2D.position.y = 8
 <<<<<<< HEAD
+=======
+		$CollisionShape2D.position.y = 10
+>>>>>>> parent of 977429b (Revert "Add files via upload")
 =======
 		$CollisionShape2D.position.y = 10
 >>>>>>> parent of 977429b (Revert "Add files via upload")

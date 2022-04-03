@@ -1,9 +1,13 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 [gd_scene load_steps=8 format=2]
 =======
 [gd_scene load_steps=7 format=2]
 >>>>>>> parent of 633c5b7 (Delete Game directory)
+=======
+[gd_scene load_steps=11 format=2]
+>>>>>>> parent of 977429b (Revert "Add files via upload")
 =======
 [gd_scene load_steps=11 format=2]
 >>>>>>> parent of 977429b (Revert "Add files via upload")
@@ -14,9 +18,12 @@
 <<<<<<< HEAD
 [ext_resource path="res://BW_Jam_Loop_Theme.mp3" type="AudioStream" id=4]
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> parent of 633c5b7 (Delete Game directory)
 =======
+=======
+>>>>>>> parent of 977429b (Revert "Add files via upload")
 [ext_resource path="res://sprites/Tileset.png" type="Texture" id=5]
 
 [sub_resource type="ConvexPolygonShape2D" id=4]
@@ -44,6 +51,9 @@ points = PoolVector2Array( 0, 0, 21, 0, 21, 21, 0, 21 )
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 0/z_index = 0
+<<<<<<< HEAD
+>>>>>>> parent of 977429b (Revert "Add files via upload")
+=======
 >>>>>>> parent of 977429b (Revert "Add files via upload")
 
 [sub_resource type="Shader" id=1]
@@ -68,6 +78,7 @@ extents = Vector2( 49, 77.25 )
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 [node name="floor5" parent="." instance=ExtResource( 1 )]
 modulate = Color( 1, 0, 0, 1 )
@@ -81,6 +92,8 @@ modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 32, 280 )
 scale = Vector2( 50, 1 )
 
+=======
+>>>>>>> parent of 977429b (Revert "Add files via upload")
 =======
 >>>>>>> parent of 977429b (Revert "Add files via upload")
 [node name="floor2" parent="." instance=ExtResource( 1 )]
@@ -147,10 +160,13 @@ scale = Vector2( 0.2, 0.2 )
 stream = ExtResource( 4 )
 volume_db = -6.0
 autoplay = true
+<<<<<<< HEAD
 
 =======
 position = Vector2( -32, 115 )
 scale = Vector2( 0.2, 0.2 )
+=======
+>>>>>>> parent of 977429b (Revert "Add files via upload")
 
 >>>>>>> parent of 633c5b7 (Delete Game directory)
 [connection signal="body_entered" from="Norewind" to="player" method="_on_Norewind_body_entered"]
