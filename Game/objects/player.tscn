@@ -5,6 +5,7 @@
 
 [sub_resource type="ShaderMaterial" id=3]
 
+<<<<<<< HEAD
 [sub_resource type="AtlasTexture" id=7]
 flags = 4
 atlas = ExtResource( 1 )
@@ -15,6 +16,8 @@ flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 160, 0, 32, 32 )
 
+=======
+>>>>>>> parent of 633c5b7 (Delete Game directory)
 [sub_resource type="AtlasTexture" id=9]
 flags = 4
 atlas = ExtResource( 1 )
@@ -45,6 +48,19 @@ flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 288, 0, 32, 32 )
 
+<<<<<<< HEAD
+=======
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=8]
+flags = 4
+atlas = ExtResource( 1 )
+region = Rect2( 160, 0, 32, 32 )
+
+>>>>>>> parent of 633c5b7 (Delete Game directory)
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
 "frames": [  ],
@@ -52,11 +68,14 @@ animations = [ {
 "name": "ATTACK",
 "speed": 1.0
 }, {
+<<<<<<< HEAD
 "frames": [ SubResource( 7 ), SubResource( 8 ) ],
 "loop": true,
 "name": "RUN",
 "speed": 5.0
 }, {
+=======
+>>>>>>> parent of 633c5b7 (Delete Game directory)
 "frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
 "loop": true,
 "name": "IDLE",
@@ -66,6 +85,14 @@ animations = [ {
 "loop": false,
 "name": "JUMP",
 "speed": 5.0
+<<<<<<< HEAD
+=======
+}, {
+"frames": [ SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "RUN",
+"speed": 5.0
+>>>>>>> parent of 633c5b7 (Delete Game directory)
 } ]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -79,7 +106,10 @@ material = SubResource( 3 )
 position = Vector2( 3, 6 )
 frames = SubResource( 2 )
 animation = "RUN"
+<<<<<<< HEAD
 frame = 1
+=======
+>>>>>>> parent of 633c5b7 (Delete Game directory)
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

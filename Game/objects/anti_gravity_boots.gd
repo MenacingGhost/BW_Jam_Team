@@ -14,7 +14,10 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+<<<<<<< HEAD
 
 
 func _on_anti_gravity_boots_body_entered(body):
 	queue_free()
+=======
+>>>>>>> parent of 633c5b7 (Delete Game directory)

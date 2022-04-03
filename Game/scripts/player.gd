@@ -32,11 +32,18 @@ func handle_rewind_function():
 	var dir_number = 0
 
 	if(do_rewind): # DO REWIND
+<<<<<<< HEAD
 		anti_gravity = false
 		is_rewinding = true
 		if(recorded_data.size() > 0):
 			
 			var current_frame = recorded_data[0]
+=======
+		is_rewinding = true
+		if(recorded_data.size() > 0):
+			var current_frame = recorded_data[0]
+			
+>>>>>>> parent of 633c5b7 (Delete Game directory)
 			#Set our values to the first frame of the array
 			if(current_frame != null):
 				ani.animation = current_frame[0]
@@ -108,12 +115,16 @@ func do_physics(delta):
 func handle_movement(var delta):
 	if(!anti_gravity):
 		$CollisionShape2D.position.y = 8
+<<<<<<< HEAD
 		gravity = 1500
 		ani.flip_v = false
 		
 	else:
 		gravity = -1500
 		ani.flip_v = true
+=======
+	else:
+>>>>>>> parent of 633c5b7 (Delete Game directory)
 		$CollisionShape2D.position.y = 3
 	if(is_on_wall()):
 		hSpeed = 0
@@ -180,10 +191,18 @@ func _on_Timer_timeout():
 
 func _on_Norewind_body_entered(body):
 	do_rewind = false
+<<<<<<< HEAD
 	anti_gravity = false
 	print(anti_gravity)
+=======
+>>>>>>> parent of 633c5b7 (Delete Game directory)
 
 
 func _on_anti_gravity_boots_body_entered(body):
 	anti_gravity = true
+<<<<<<< HEAD
 	
+=======
+	gravity = -1500
+	ani.flip_v = true
+>>>>>>> parent of 633c5b7 (Delete Game directory)
