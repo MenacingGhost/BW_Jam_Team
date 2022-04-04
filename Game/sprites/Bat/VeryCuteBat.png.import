@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/astro.png-6dce710c0ffc5582fe0178301236298a.stex"
+path="res://.import/VeryCuteBat.png-5818daea05898b2a656031ce4a3403b1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/astro.png"
-dest_files=[ "res://.import/astro.png-6dce710c0ffc5582fe0178301236298a.stex" ]
+source_file="res://sprites/Bat/VeryCuteBat.png"
+dest_files=[ "res://.import/VeryCuteBat.png-5818daea05898b2a656031ce4a3403b1.stex" ]
 
 [params]
 

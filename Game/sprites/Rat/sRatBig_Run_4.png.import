@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/astro.png-6dce710c0ffc5582fe0178301236298a.stex"
+path="res://.import/sRatBig_Run_4.png-aeccd08e6bae330fb34968c9c70703c6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/astro.png"
-dest_files=[ "res://.import/astro.png-6dce710c0ffc5582fe0178301236298a.stex" ]
+source_file="res://sprites/Rat/sRatBig_Run_4.png"
+dest_files=[ "res://.import/sRatBig_Run_4.png-aeccd08e6bae330fb34968c9c70703c6.stex" ]
 
 [params]
 

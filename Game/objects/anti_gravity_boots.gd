@@ -11,6 +11,8 @@ func _ready():
 	$AnimationPlayer.play("m")
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+
+
+func _on_anti_gravity_boots_body_entered(body):
+	if "player" in body.name:
+		queue_free()

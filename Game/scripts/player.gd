@@ -17,7 +17,6 @@ var motion = Vector2.ZERO
 var UP : Vector2 = Vector2(0,-1)
 
 onready var ani = $AnimatedSprite
-onready var ground_ray = $ground_ray
 
 var recorded_data = [] # this is our array we update when moving, check when recording
 var is_rewinding = false # we'll use this to disable this object when true. so we can add recorded data to it
@@ -26,6 +25,7 @@ var rewind_ghost = load("res://objects/rewind_ghost.tscn") # direct to a sprite 
 var do_rewind = false
 var jump_counter = 0
 var anti_gravity = false
+var equid = false
 
 func handle_rewind_function():
 	var ani_number = ani.get_index()
@@ -62,10 +62,6 @@ func handle_rewind_function():
 		recorded_data.push_front([ani.animation,global_position,ani.flip_h])
 		if(recorded_data.size() > rewind_length): #our record is longer than 3 secs, remove last frame
 			recorded_data.pop_back()
-
-			
-		
-			
 
 func _physics_process(delta):
 	handle_rewind_function()
@@ -105,14 +101,17 @@ func do_physics(delta):
 	pass
 	
 func handle_movement(var delta):
-	if(!anti_gravity):
-		$CollisionShape2D.position.y = 8
+	if(anti_gravity):
+		gravity = -1500
+		ani.flip_v = true
 	else:
-		$CollisionShape2D.position.y = 3
+		gravity = 1500
+		ani.flip_v = false
+		
 	if(is_on_wall()):
 		hSpeed = 0
 		motion.x = 0
-	if(ground_ray.is_colliding()):
+	if is_on_floor():
 		jump_counter = 0
 		vSpeed = 0
 		motion.y = 0
@@ -133,10 +132,10 @@ func handle_movement(var delta):
 				if(is_on_ceiling()):
 					ani.play("RUN")
 				
-			if(ground_ray.is_colliding()):
+			if is_on_floor():
 				ani.play("RUN")
 		else:
-			if(ground_ray.is_colliding()):
+			if is_on_floor():
 				ani.play("RUN")
 	elif(Input.get_joy_axis(0,0) < -0.3 or Input.is_action_pressed("ui_left")):
 		if(hSpeed > 100):
@@ -146,37 +145,48 @@ func handle_movement(var delta):
 		elif(hSpeed > -max_horizontal_speed):
 			hSpeed -= (acceleration * delta)
 			ani.flip_h = true
-			if(ground_ray.is_colliding()):
+			if is_on_floor():
 				ani.play("RUN")
 		else:
-			if(ground_ray.is_colliding()):
+			if is_on_floor():
 				ani.play("RUN")
 	else:
-		if(ground_ray.is_colliding()):
+		if is_on_floor():
 			ani.play("IDLE")
-		if(anti_gravity):
+		if anti_gravity:
 			if(is_on_ceiling()):
 				ani.play("IDLE")
 		hSpeed -= min(abs(hSpeed),current_friction * delta) * sign(hSpeed)
 		
 	
-	if(Input.is_action_just_pressed("ui_accept")) && jump_counter < 2:
-			vSpeed = jump_height
+	if not anti_gravity:
+		if(Input.is_action_just_pressed("ui_accept")) && jump_counter < 2 || Input.is_action_just_pressed("ui_up") and jump_counter < 2:
+				vSpeed = jump_height
+				jump_counter += 1
+	if anti_gravity:
+		if Input.is_action_just_pressed("ui_accept") and jump_counter < 2 and is_on_ceiling() || Input.is_action_just_pressed("ui_up") and jump_counter < 2 and is_on_ceiling():
+			vSpeed = 600
 			jump_counter += 1
-	pass
-
-
+	
+	if(equid):
+		if Input.is_action_just_pressed("e"):
+			anti_gravity = not anti_gravity
 
 func _on_Timer_timeout():
 	do_rewind = true
 
-	
-
 func _on_Norewind_body_entered(body):
 	do_rewind = false
-
+	anti_gravity = false
 
 func _on_anti_gravity_boots_body_entered(body):
-	anti_gravity = true
-	gravity = -1500
-	ani.flip_v = true
+	if "player" in body.name:
+		equid = true
+		anti_gravity = true
+
+
+func _on_detector_body_entered(body):
+	if "flying enemy" in body.name:
+		get_tree().reload_current_scene()
+
+
