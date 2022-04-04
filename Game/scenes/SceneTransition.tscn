@@ -51,9 +51,6 @@ anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0.00392157, 0.00392157, 0.00392157, 1 )
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Fade = SubResource( 1 )
