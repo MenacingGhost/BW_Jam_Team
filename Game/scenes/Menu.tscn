@@ -37,7 +37,7 @@ margin_right = 598.0
 margin_bottom = 339.0
 focus_mode = 0
 custom_fonts/font = SubResource( 1 )
-text = "START"
+text = "Start"
 flat = true
 
 [node name="Button2" type="Button" parent="."]
@@ -63,6 +63,7 @@ text = "Credits"
 flat = true
 
 [node name="SceneTransition" parent="." instance=ExtResource( 1 )]
+visible = false
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
