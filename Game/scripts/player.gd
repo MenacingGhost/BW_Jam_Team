@@ -26,6 +26,7 @@ var do_rewind = false
 var jump_counter = 0
 var anti_gravity = false
 var equid = false
+var jetpack_boost = false
 
 func handle_rewind_function():
 	var ani_number = ani.get_index()
@@ -121,6 +122,12 @@ func handle_movement(var delta):
 			
 			ani.play("JUMP")
 	#controller right/keyboard right
+	if(Input.is_action_just_pressed("c")):
+		if(ani.flip_h == false):
+			hSpeed = 700
+		else:
+			hSpeed = -700
+			
 	if(Input.get_joy_axis(0,0) > 0.3 or Input.is_action_pressed("ui_right")):
 		if(hSpeed <-100):
 			hSpeed += (deacceleration * delta)
@@ -160,14 +167,13 @@ func handle_movement(var delta):
 		hSpeed -= min(abs(hSpeed),current_friction * delta) * sign(hSpeed)
 		
 	
-	if not anti_gravity:
-		if(Input.is_action_just_pressed("ui_accept")) && jump_counter < 2 || Input.is_action_just_pressed("ui_up") and jump_counter < 2:
+	if not jetpack_boost:
+		if(Input.is_action_just_pressed("ui_accept")) && jump_counter < 1 || Input.is_action_just_pressed("ui_up") and jump_counter < 1:
 				vSpeed = jump_height
 				jump_counter += 1
 	else:
 		if (Input.is_action_just_pressed("ui_accept")) && jump_counter < 2 || Input.is_action_just_pressed("ui_up") and jump_counter < 2:
-			vSpeed = 1600
-			gravity = 0
+			vSpeed = jump_height
 			jump_counter += 1
 		
 	

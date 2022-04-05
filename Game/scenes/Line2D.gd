@@ -9,3 +9,8 @@ func _decrease_line():
 
 func _on_Timer_timeout():
 	_decrease_line()
+
+
+func _on_Norewind_body_entered(body):
+	if "player" in body.name:
+		points[1].y = 210

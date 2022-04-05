@@ -31,13 +31,16 @@ shader_param/tint = Vector3( 0, 0, 0 )
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 32, 32 )
 format = 1
-tile_data = PoolIntArray( 196607, 1, 0, 131072, 1, 0, 196612, 6, 0, 393214, 4, 0, 393215, 4, 0, 327680, 4, 0, 327681, 4, 0, 327686, 6, 0, 458748, 2, 0, 393224, 3, 0, 393226, 0, 0, 393227, 0, 0, 524284, 2, 0, 458760, 3, 0, 458762, 0, 0, 458763, 0, 0, 589818, 5, 0, 589819, 5, 0, 589820, 5, 0, 589821, 5, 0, 589822, 5, 0, 589823, 5, 0, 524288, 5, 0, 524289, 5, 0, 524290, 5, 0, 524291, 5, 0, 524292, 5, 0, 524293, 5, 0, 524294, 5, 0, 524295, 5, 0, 524296, 5, 0, 524297, 5, 0, 524298, 5, 0, 524299, 5, 0, 524300, 5, 0, 524301, 5, 0 )
+tile_data = PoolIntArray( -393224, 5, 0, -393223, 5, 0, -393222, 5, 0, -393221, 5, 0, -393220, 5, 0, -393219, 5, 0, -327682, 5, 0, -262146, 5, 0, -196610, 5, 0, -262141, 5, 0, -262140, 5, 0, -262139, 5, 0, -262138, 5, 0, -131074, 5, 0, -65538, 5, 0, -131064, 5, 0, -131063, 5, 0, -131062, 5, 0, -131061, 5, 0, -131060, 5, 0, -131059, 5, 0, -131058, 5, 0, -131057, 5, 0, -131056, 5, 0, 196609, 0, 0, 196620, 5, 0, 196621, 5, 0, 196622, 5, 0, 196623, 5, 0, 196624, 5, 0, 196625, 5, 0, 327679, 0, 0, 262144, 0, 0, 262145, 0, 0, 327681, 0, 0, 393217, 0, 0, 589818, 5, 0, 589819, 5, 0, 589820, 5, 0, 589821, 5, 0, 589822, 5, 0, 589823, 5, 0, 524293, 5, 0, 524294, 5, 0, 524295, 5, 0, 524296, 5, 0, 524297, 5, 0, 524298, 5, 0, 524299, 5, 0, 524300, 5, 0, 524301, 5, 0 )
 
 [node name="player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 127.95, 160.035 )
+position = Vector2( -96, 219 )
 
 [node name="flying enemy" parent="." instance=ExtResource( 4 )]
-position = Vector2( -15, 123 )
+position = Vector2( 306, 228 )
+
+[node name="flying enemy2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 504, -97 )
 
 [node name="Norewind" type="Area2D" parent="."]
 
@@ -46,7 +49,7 @@ position = Vector2( 135, 184.25 )
 shape = SubResource( 3 )
 
 [node name="anti_gravity_boots" parent="." instance=ExtResource( 3 )]
-position = Vector2( -48, 241 )
+position = Vector2( 407, 224 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -63,6 +66,7 @@ __meta__ = {
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
 volume_db = -7.667
+autoplay = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -77,6 +81,7 @@ wait_time = 0.25
 autostart = true
 
 [connection signal="body_entered" from="Norewind" to="player" method="_on_Norewind_body_entered"]
+[connection signal="body_entered" from="Norewind" to="CanvasLayer/Line2D" method="_on_Norewind_body_entered"]
 [connection signal="area_entered" from="anti_gravity_boots" to="player" method="_on_anti_gravity_boots_area_entered"]
 [connection signal="body_entered" from="anti_gravity_boots" to="player" method="_on_anti_gravity_boots_body_entered"]
 [connection signal="timeout" from="Timer" to="CanvasLayer/Line2D" method="_on_Timer_timeout"]

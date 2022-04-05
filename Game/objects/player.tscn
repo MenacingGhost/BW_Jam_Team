@@ -45,11 +45,6 @@ animations = [ {
 "name": "JUMP",
 "speed": 5.0
 }, {
-"frames": [  ],
-"loop": true,
-"name": "ATTACK",
-"speed": 1.0
-}, {
 "frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
 "loop": true,
 "name": "IDLE",
@@ -59,6 +54,11 @@ animations = [ {
 "loop": true,
 "name": "RUN",
 "speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "ATTACK",
+"speed": 1.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -75,7 +75,7 @@ material = SubResource( 3 )
 position = Vector2( 3, 6 )
 frames = SubResource( 2 )
 animation = "IDLE"
-frame = 2
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -84,7 +84,7 @@ scale = Vector2( 1.8, 1.55 )
 shape = SubResource( 1 )
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 16.0
 autostart = true
 
 [node name="Timer1" type="Timer" parent="."]

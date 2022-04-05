@@ -5,13 +5,25 @@ func _ready():
 	pass
 
 var motion = Vector2()
-var speed = 180
-
+var speed = 201
+var player = null
 func _physics_process(delta):
-	var player = get_parent().get_node("player")
+	motion = Vector2.ZERO
 	
-	position += (player.position - position)/80
+	if player:
+		motion = position.direction_to(player.position)*speed
+		
 
 	
-	move_and_slide(motion)
+	motion = move_and_slide(motion)
 	
+
+
+func _on_Area2D_body_entered(body):
+	if "player" in body.name:
+		player = body
+
+
+func _on_Area2D_body_exited(body):
+	if "player" in body.name:
+		player = null
