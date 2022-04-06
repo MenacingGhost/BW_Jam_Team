@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://MainMusic.gd" type="Script" id=1]
+[ext_resource path="res://scripts/MainMusic.gd" type="Script" id=1]
 [ext_resource path="res://music/BW_Jam_Loop_Theme.mp3" type="AudioStream" id=2]
 
 [node name="MainMusic" type="AudioStreamPlayer"]

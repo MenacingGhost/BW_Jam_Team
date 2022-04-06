@@ -26,6 +26,7 @@ var do_rewind = false
 var jump_counter = 0
 var anti_gravity = false
 var equid = false
+var jetpack_boost = false
 
 func handle_rewind_function():
 	var ani_number = ani.get_index()
@@ -33,6 +34,7 @@ func handle_rewind_function():
 
 	if(do_rewind): # DO REWIND
 		is_rewinding = true
+
 		if(recorded_data.size() > 0):
 			var current_frame = recorded_data[0]
 			
@@ -120,6 +122,12 @@ func handle_movement(var delta):
 			
 			ani.play("JUMP")
 	#controller right/keyboard right
+	if(Input.is_action_just_pressed("dash")):
+		if(ani.flip_h == false):
+			hSpeed = 700
+		else:
+			hSpeed = -700
+			
 	if(Input.get_joy_axis(0,0) > 0.3 or Input.is_action_pressed("ui_right")):
 		if(hSpeed <-100):
 			hSpeed += (deacceleration * delta)
@@ -159,21 +167,23 @@ func handle_movement(var delta):
 		hSpeed -= min(abs(hSpeed),current_friction * delta) * sign(hSpeed)
 		
 	
-	if not anti_gravity:
-		if(Input.is_action_just_pressed("ui_accept")) && jump_counter < 2 || Input.is_action_just_pressed("ui_up") and jump_counter < 2:
+	if not jetpack_boost:
+		if(Input.is_action_just_pressed("ui_accept")) && jump_counter < 1 || Input.is_action_just_pressed("ui_up") and jump_counter < 1:
 				vSpeed = jump_height
 				jump_counter += 1
-	if anti_gravity:
-		if Input.is_action_just_pressed("ui_accept") and jump_counter < 2 and is_on_ceiling() || Input.is_action_just_pressed("ui_up") and jump_counter < 2 and is_on_ceiling():
-			vSpeed = 600
+	else:
+		if (Input.is_action_just_pressed("ui_accept")) && jump_counter < 2 || Input.is_action_just_pressed("ui_up") and jump_counter < 2:
+			vSpeed = jump_height
 			jump_counter += 1
+		
 	
 	if(equid):
-		if Input.is_action_just_pressed("e"):
+		if Input.is_action_just_pressed("toggle_boots"):
 			anti_gravity = not anti_gravity
 
 func _on_Timer_timeout():
 	do_rewind = true
+	$AudioStreamPlayer.play()
 
 func _on_Norewind_body_entered(body):
 	do_rewind = false
@@ -188,5 +198,6 @@ func _on_anti_gravity_boots_body_entered(body):
 func _on_detector_body_entered(body):
 	if "flying enemy" in body.name:
 		get_tree().reload_current_scene()
+		
 
 

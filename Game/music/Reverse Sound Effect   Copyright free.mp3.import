@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Reverse Sound Effect   Copyright free.mp3-f424c7221e1279478365e4d07686061d.mp3str"
+
+[deps]
+
+source_file="res://music/Reverse Sound Effect   Copyright free.mp3"
+dest_files=[ "res://.import/Reverse Sound Effect   Copyright free.mp3-f424c7221e1279478365e4d07686061d.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

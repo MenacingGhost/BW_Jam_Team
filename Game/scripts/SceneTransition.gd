@@ -10,6 +10,6 @@ func _ready() ->  void:
 func transition_to(_next_scene := next_scene_path) -> void:
 	_anim_player.play("Fade")
 	yield(_anim_player , "animation_finished")
-	_anim_player.play_backwards("Fade")
 	get_tree().change_scene(_next_scene)
+	_anim_player.play_backwards("Fade")
 
