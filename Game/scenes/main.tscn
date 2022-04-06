@@ -1,10 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://objects/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://objects/anti_gravity_boots.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/flying enemy.tscn" type="PackedScene" id=4]
-[ext_resource path="res://BW_Jam_Loop_Theme.mp3" type="AudioStream" id=5]
 [ext_resource path="res://scenes/Line2D.gd" type="Script" id=6]
 
 [sub_resource type="RectangleShape2D" id=3]
@@ -43,6 +42,7 @@ position = Vector2( 306, 228 )
 position = Vector2( 504, -97 )
 
 [node name="Norewind" type="Area2D" parent="."]
+position = Vector2( -286, -13 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Norewind"]
 position = Vector2( 135, 184.25 )
@@ -62,11 +62,6 @@ rect_scale = Vector2( -144.698, 5.91109 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 5 )
-volume_db = -7.667
-autoplay = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
