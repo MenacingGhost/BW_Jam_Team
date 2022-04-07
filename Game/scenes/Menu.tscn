@@ -4,12 +4,12 @@
 [ext_resource path="res://fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://scripts/Menu.gd" type="Script" id=3]
 
-[sub_resource type="DynamicFont" id=1]
-size = 50
-font_data = ExtResource( 2 )
-
 [sub_resource type="DynamicFont" id=2]
 size = 60
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=1]
+size = 50
 font_data = ExtResource( 2 )
 
 [node name="Menu" type="CanvasLayer"]
@@ -20,22 +20,49 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 1 )
 
-[node name="Button" type="Button" parent="."]
-margin_left = 397.0
-margin_top = 288.0
-margin_right = 594.0
-margin_bottom = 355.0
-custom_fonts/font = SubResource( 1 )
-text = "START"
-
 [node name="Label" type="Label" parent="."]
 margin_left = 25.0
 margin_top = 141.0
 margin_right = 975.0
 margin_bottom = 214.0
 custom_fonts/font = SubResource( 2 )
-text = "The Game That Has No Name"
+text = "Space Loop"
+align = 1
+
+[node name="Button" type="Button" parent="."]
+margin_left = 401.0
+margin_top = 272.0
+margin_right = 598.0
+margin_bottom = 339.0
+focus_mode = 0
+custom_fonts/font = SubResource( 1 )
+text = "Start"
+flat = true
+
+[node name="Button2" type="Button" parent="."]
+margin_left = 393.0
+margin_top = 382.0
+margin_right = 610.0
+margin_bottom = 449.0
+rect_pivot_offset = Vector2( -1369, -519 )
+focus_mode = 0
+custom_fonts/font = SubResource( 1 )
+text = "Options"
+flat = true
+
+[node name="Button3" type="Button" parent="."]
+margin_left = 391.0
+margin_top = 486.0
+margin_right = 608.0
+margin_bottom = 553.0
+rect_pivot_offset = Vector2( -1369, -519 )
+focus_mode = 0
+custom_fonts/font = SubResource( 1 )
+text = "Credits"
+flat = true
 
 [node name="SceneTransition" parent="." instance=ExtResource( 1 )]
 
 [connection signal="pressed" from="Button" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_OptionsButton_pressed"]
+[connection signal="pressed" from="Button3" to="." method="_on_CreditsButton_pressed"]

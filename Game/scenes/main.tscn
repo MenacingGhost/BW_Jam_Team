@@ -1,10 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://tileset.tres" type="TileSet" id=1]
+[ext_resource path="res://art/tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://objects/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://objects/anti_gravity_boots.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/flying enemy.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/Line2D.gd" type="Script" id=6]
+[ext_resource path="res://objects/flying enemy.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scripts/main.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 49, 77.25 )
@@ -24,7 +24,39 @@ void fragment() {
 shader = SubResource( 1 )
 shader_param/tint = Vector3( 0, 0, 0 )
 
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1024, 25 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "mainTime"
+length = 300.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 300 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1024, 25 ), Vector2( 0, 25 ) ]
+}
+
 [node name="main" type="Node2D"]
+script = ExtResource( 5 )
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
@@ -42,7 +74,6 @@ position = Vector2( 306, 228 )
 position = Vector2( 504, -97 )
 
 [node name="Norewind" type="Area2D" parent="."]
-position = Vector2( -286, -13 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Norewind"]
 position = Vector2( 135, 184.25 )
@@ -54,10 +85,10 @@ scale = Vector2( 0.2, 0.2 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource( 2 )
-margin_left = 2920.0
-margin_top = -1164.0
-margin_right = 2960.0
-margin_bottom = -778.0
+margin_left = 5285.0
+margin_top = -1899.0
+margin_right = 5358.0
+margin_bottom = -1129.0
 rect_scale = Vector2( -144.698, 5.91109 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -65,18 +96,21 @@ __meta__ = {
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Line2D" type="Line2D" parent="CanvasLayer"]
-position = Vector2( 59, 113 )
-points = PoolVector2Array( 14, 1, 14, 210 )
-width = 24.0
-script = ExtResource( 6 )
+[node name="TimerBar" type="ColorRect" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 573.0
+margin_right = 1024.0
+margin_bottom = 598.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/TimerBar"]
+anims/RESET = SubResource( 4 )
+anims/mainTime = SubResource( 5 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.25
 autostart = true
 
 [connection signal="body_entered" from="Norewind" to="player" method="_on_Norewind_body_entered"]
-[connection signal="body_entered" from="Norewind" to="CanvasLayer/Line2D" method="_on_Norewind_body_entered"]
 [connection signal="area_entered" from="anti_gravity_boots" to="player" method="_on_anti_gravity_boots_area_entered"]
 [connection signal="body_entered" from="anti_gravity_boots" to="player" method="_on_anti_gravity_boots_body_entered"]
-[connection signal="timeout" from="Timer" to="CanvasLayer/Line2D" method="_on_Timer_timeout"]
