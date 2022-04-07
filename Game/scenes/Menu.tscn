@@ -6,6 +6,7 @@
 
 [sub_resource type="DynamicFont" id=2]
 size = 60
+outline_color = Color( 0.796078, 0.858824, 0.988235, 1 )
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=1]
@@ -18,13 +19,14 @@ script = ExtResource( 3 )
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0, 0, 0, 1 )
+color = Color( 0.133333, 0.12549, 0.203922, 1 )
 
 [node name="Label" type="Label" parent="."]
 margin_left = 25.0
 margin_top = 141.0
 margin_right = 975.0
 margin_bottom = 214.0
+custom_colors/font_color = Color( 0.796078, 0.858824, 0.988235, 1 )
 custom_fonts/font = SubResource( 2 )
 text = "Space Loop"
 align = 1
@@ -35,6 +37,7 @@ margin_top = 272.0
 margin_right = 598.0
 margin_bottom = 339.0
 focus_mode = 0
+custom_colors/font_color = Color( 0.796078, 0.858824, 0.988235, 1 )
 custom_fonts/font = SubResource( 1 )
 text = "Start"
 flat = true
@@ -46,6 +49,7 @@ margin_right = 610.0
 margin_bottom = 449.0
 rect_pivot_offset = Vector2( -1369, -519 )
 focus_mode = 0
+custom_colors/font_color = Color( 0.796078, 0.858824, 0.988235, 1 )
 custom_fonts/font = SubResource( 1 )
 text = "Options"
 flat = true
@@ -57,11 +61,13 @@ margin_right = 608.0
 margin_bottom = 553.0
 rect_pivot_offset = Vector2( -1369, -519 )
 focus_mode = 0
+custom_colors/font_color = Color( 0.796078, 0.858824, 0.988235, 1 )
 custom_fonts/font = SubResource( 1 )
 text = "Credits"
 flat = true
 
 [node name="SceneTransition" parent="." instance=ExtResource( 1 )]
+visible = false
 
 [connection signal="pressed" from="Button" to="." method="_on_StartButton_pressed"]
 [connection signal="pressed" from="Button2" to="." method="_on_OptionsButton_pressed"]
