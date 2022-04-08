@@ -1,13 +1,13 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://art/tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://objects/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://objects/anti_gravity_boots.tscn" type="PackedScene" id=3]
 [ext_resource path="res://objects/flying enemy.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scripts/main.gd" type="Script" id=5]
-
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 49, 77.25 )
+[ext_resource path="res://Key.tscn" type="PackedScene" id=6]
+[ext_resource path="res://door.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Norewind.tscn" type="PackedScene" id=8]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -41,7 +41,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id=5]
 resource_name = "mainTime"
-length = 300.0
+length = 16.0
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rect_size")
 tracks/0/interp = 1
@@ -49,10 +49,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 300 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 16, 300 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 1024, 25 ), Vector2( 0, 25 ) ]
+"values": [ Vector2( 1024, 25 ), Vector2( 1, 25 ), Vector2( 0, 25 ) ]
 }
 
 [node name="main" type="Node2D"]
@@ -64,6 +64,10 @@ cell_size = Vector2( 32, 32 )
 format = 1
 tile_data = PoolIntArray( -393224, 5, 0, -393223, 5, 0, -393222, 5, 0, -393221, 5, 0, -393220, 5, 0, -393219, 5, 0, -327690, 15, 0, -327689, 15, 0, -327688, 15, 0, -327687, 15, 0, -327686, 15, 0, -327685, 15, 0, -327682, 5, 0, -262149, 15, 0, -262148, 15, 0, -262147, 15, 0, -262146, 15, 0, -262145, 15, 0, -196610, 5, 0, -196609, 15, 0, -262141, 5, 0, -262140, 5, 0, -262139, 5, 0, -262138, 5, 0, -131074, 5, 0, -131073, 15, 0, -65538, 5, 0, -65537, 15, 0, -131070, 15, 0, -131069, 15, 0, -131068, 15, 0, -131067, 15, 0, -131066, 15, 0, -131065, 15, 0, -131064, 15, 0, -131063, 15, 0, -131062, 15, 0, -131061, 15, 0, -131060, 15, 0, -131059, 15, 0, -131058, 15, 0, -131057, 15, 0, -131056, 15, 0, -1, 15, 0, 131073, 15, 0, 131074, 15, 0, 196609, 15, 0, 196618, 15, 0, 196619, 15, 0, 196620, 15, 0, 196621, 15, 0, 196622, 15, 0, 196623, 15, 0, 196624, 15, 0, 196625, 15, 0, 196626, 15, 0, 196627, 15, 0, 327679, 15, 0, 262144, 15, 0, 262145, 15, 0, 327681, 15, 0, 393217, 15, 0, 589818, 15, 0, 589819, 15, 0, 589820, 15, 0, 589821, 15, 0, 589822, 15, 0, 589823, 15, 0, 524293, 15, 0, 524294, 15, 0, 524295, 15, 0, 524296, 15, 0, 524297, 15, 0, 524298, 15, 0, 524299, 15, 0, 524300, 15, 0, 524301, 15, 0, 524302, 15, 0 )
 
+[node name="door" parent="." instance=ExtResource( 7 )]
+position = Vector2( -272, -123 )
+scale = Vector2( 0.6, -0.6 )
+
 [node name="player" parent="." instance=ExtResource( 2 )]
 position = Vector2( -96, 219 )
 
@@ -73,24 +77,24 @@ position = Vector2( 306, 228 )
 [node name="flying enemy2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 504, -97 )
 
-[node name="Norewind" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Norewind"]
-position = Vector2( 135, 184.25 )
-shape = SubResource( 3 )
-
 [node name="anti_gravity_boots" parent="." instance=ExtResource( 3 )]
 position = Vector2( 407, 224 )
 scale = Vector2( 0.2, 0.2 )
 
+[node name="Key" parent="." instance=ExtResource( 6 )]
+position = Vector2( 280, -79 )
+scale = Vector2( 1.2, 1.2 )
+
 [node name="ColorRect" type="ColorRect" parent="."]
-visible = false
 material = SubResource( 2 )
 margin_left = 5285.0
 margin_top = -1899.0
 margin_right = 5358.0
 margin_bottom = -1129.0
 rect_scale = Vector2( -144.698, 5.91109 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -99,7 +103,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 573.0
 margin_bottom = -2.0
-color = Color( 0.796078, 0.858824, 0.988235, 1 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/TimerBar"]
 anims/RESET = SubResource( 4 )
@@ -109,6 +116,10 @@ anims/mainTime = SubResource( 5 )
 wait_time = 0.25
 autostart = true
 
-[connection signal="body_entered" from="Norewind" to="player" method="_on_Norewind_body_entered"]
+[node name="Norewind" parent="." instance=ExtResource( 8 )]
+position = Vector2( -148, 193 )
+
 [connection signal="area_entered" from="anti_gravity_boots" to="player" method="_on_anti_gravity_boots_area_entered"]
 [connection signal="body_entered" from="anti_gravity_boots" to="player" method="_on_anti_gravity_boots_body_entered"]
+[connection signal="body_entered" from="Key" to="player" method="_on_Key_body_entered"]
+[connection signal="body_entered" from="Norewind" to="player" method="_on_Norewind_body_entered"]

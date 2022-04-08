@@ -15,4 +15,6 @@ func _ready():
 
 func _on_anti_gravity_boots_body_entered(body):
 	if "player" in body.name:
-		queue_free()
+		visible = false
+		if(body.do_rewind):
+			visible = true
