@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Flying_Enemy.png-985043789a53d035e191c3e7671d7d4a.stex"
+path="res://.import/robot_idle.png-63e380400494197a6df816a506c11e4b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/Flying_Enemy.png"
-dest_files=[ "res://.import/Flying_Enemy.png-985043789a53d035e191c3e7671d7d4a.stex" ]
+source_file="res://sprites/robot_idle.png"
+dest_files=[ "res://.import/robot_idle.png-63e380400494197a6df816a506c11e4b.stex" ]
 
 [params]
 
