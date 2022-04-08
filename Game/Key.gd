@@ -18,4 +18,14 @@ func _ready():
 
 func _on_Key_body_entered(body):
 	if "player" in body.name:
-		queue_free()
+		visible = false
+		
+		
+
+
+
+
+func _on_Norewind_body_entered(body):
+	if "player" in body.name:
+		if(body.is_rewinding):
+			visible = true

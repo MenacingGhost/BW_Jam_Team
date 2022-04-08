@@ -36,13 +36,12 @@ extents = Vector2( 63.5, 16 )
 [sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 53.875, 10 )
 
-[node name="Walking_enemy" type="KinematicBody2D"]
+[node name="Walking_enemy" type="KinematicBody2D" groups=["rewind"]]
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 5 )
 animation = "idle"
-frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
