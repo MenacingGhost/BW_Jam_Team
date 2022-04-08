@@ -27,18 +27,81 @@ var jump_counter = 0
 var anti_gravity = false
 var equid = false
 var jetpack_boost = false
+onready var tween_out = get_node("Tween")
+var movable = true
+var key_equid = false
+export var transition_duration = 1.00
+export var transition_type = 1 
+
+func fade_out(stream_player):
+	tween_out.interpolate_property(stream_player, "volume_db", -7.5, -80, transition_duration, transition_type, Tween.EASE_IN, 0)
+	tween_out.start()
+
+func _on_TweenOut_tween_completed(object, key):
+	object.stop()
+
+
+var DATA = [] 
+var rewind_objects
+
+
+func _ready():
+	rewind_objects = get_tree().get_nodes_in_group("rewind")
+	for mem in rewind_objects:
+		DATA.push_back([mem.name])
+		
+func handle_rewind_objects():
+	if(do_rewind):
+		is_rewinding = true
+		for mem in rewind_objects:
+			var data = DATA[count]
+			if(data.size() > 1):
+				var current_frame = data[0]
+				var ani = mem.get_node("AnimatedSprite")
+				
+			
+				ani.animation = current_frame[0]
+				mem.global_position = current_frame[1]
+				ani.flip_h = current_frame[2]
+				
+				
+				var ghost : Sprite = rewind_ghost.instance()
+				ghost.texture = ani.frames.get_frame(ani.animation,ani.frame)
+				ghost.global_position = mem.global_position
+				ghost.flip_h = ani.flip_h
+				get_parent().add_child(ghost)
+				
+			
+				data.pop_front()
+				count += 1
+		count = 0
+	else:
+		is_rewinding = false
+		for mem in rewind_objects:
+			var data = DATA[count]
+			
+			var ani = mem.get_node("AnimatedSprite")
+			data.push_front([ani.animation,mem.global_position,ani.flip_h])
+			count += 1
+			if(data.size() > rewind_length): #our record is longer than 3 secs, remove last frame
+				data.pop_back()
+		count = 0
+		pass
+		
 
 func handle_rewind_function():
 	var ani_number = ani.get_index()
 	var dir_number = 0
 
-	if(do_rewind): # DO REWIND
+	if(do_rewind): 
 		is_rewinding = true
+		equid = false
+		key_equid = false
 
 		if(recorded_data.size() > 0):
 			var current_frame = recorded_data[0]
 			
-			#Set our values to the first frame of the array
+			
 			if(current_frame != null):
 				ani.animation = current_frame[0]
 				global_position = current_frame[1]
@@ -50,10 +113,10 @@ func handle_rewind_function():
 				ghost.flip_h = ani.flip_h
 				get_parent().add_child(ghost)
 				
-			#remove thet first frame as we've just used it
+			
 			recorded_data.pop_front()
 			
-	else: # WE are recording
+	else: 
 		is_rewinding = false
 		
 		if(ani.flip_h):
@@ -62,10 +125,11 @@ func handle_rewind_function():
 			dir_number = 0
 		
 		recorded_data.push_front([ani.animation,global_position,ani.flip_h])
-		if(recorded_data.size() > rewind_length): #our record is longer than 3 secs, remove last frame
+		if(recorded_data.size() > rewind_length): 
 			recorded_data.pop_back()
 
 func _physics_process(delta):
+	handle_rewind_objects()
 	handle_rewind_function()
 	if(is_rewinding):
 		Engine.time_scale = 0.5
@@ -103,83 +167,91 @@ func do_physics(delta):
 	pass
 	
 func handle_movement(var delta):
-	if(anti_gravity):
-		gravity = -1500
-		ani.flip_v = true
-	else:
-		gravity = 1500
-		ani.flip_v = false
-		
-	if(is_on_wall()):
-		hSpeed = 0
-		motion.x = 0
-	if is_on_floor():
-		jump_counter = 0
-		vSpeed = 0
-		motion.y = 0
-	else:
-		if(!anti_gravity):
+	if(movable):
+		if(anti_gravity):
+			gravity = -1500
+			ani.flip_v = true
+		else:
+			gravity = 1500
+			ani.flip_v = false
 			
-			ani.play("JUMP")
-	#controller right/keyboard right
-	if(Input.is_action_just_pressed("dash")):
-		if(ani.flip_h == false):
-			hSpeed = 700
-		else:
-			hSpeed = -700
-			
-	if(Input.get_joy_axis(0,0) > 0.3 or Input.is_action_pressed("ui_right")):
-		if(hSpeed <-100):
-			hSpeed += (deacceleration * delta)
-			#if(touching_ground):
-		#		ani.play("TURN")
-		elif(hSpeed < max_horizontal_speed):
-			hSpeed += (acceleration * delta)
-			ani.flip_h = false
-			if(anti_gravity):
-				if(is_on_ceiling()):
-					ani.play("RUN")
-				
-			if is_on_floor():
-				ani.play("RUN")
-		else:
-			if is_on_floor():
-				ani.play("RUN")
-	elif(Input.get_joy_axis(0,0) < -0.3 or Input.is_action_pressed("ui_left")):
-		if(hSpeed > 100):
-			hSpeed -= (deacceleration * delta)
-			#if(touching_ground):
-		#		ani.play("TURN")
-		elif(hSpeed > -max_horizontal_speed):
-			hSpeed -= (acceleration * delta)
-			ani.flip_h = true
-			if is_on_floor():
-				ani.play("RUN")
-		else:
-			if is_on_floor():
-				ani.play("RUN")
-	else:
+		if(is_on_wall()):
+			hSpeed = 0
+			motion.x = 0
 		if is_on_floor():
-			ani.play("IDLE")
-		if anti_gravity:
-			if(is_on_ceiling()):
-				ani.play("IDLE")
-		hSpeed -= min(abs(hSpeed),current_friction * delta) * sign(hSpeed)
+			jump_counter = 0
+			vSpeed = 0
+			motion.y = 0
+		else:
+			if(!anti_gravity):
+				
+				ani.play("JUMP")
+		#controller right/keyboard right
 		
-	
-	if not jetpack_boost:
-		if(Input.is_action_just_pressed("ui_accept")) && jump_counter < 1 || Input.is_action_just_pressed("ui_up") and jump_counter < 1:
+				
+		if(Input.get_joy_axis(0,0) > 0.3 or Input.is_action_pressed("ui_right")):
+			if(hSpeed <-100):
+				hSpeed += (deacceleration * delta)
+				#if(touching_ground):
+			#		ani.play("TURN")
+			elif(hSpeed < max_horizontal_speed):
+				hSpeed += (acceleration * delta)
+				ani.flip_h = false
+				if(anti_gravity):
+					if(is_on_ceiling()):
+						ani.play("RUN")
+					
+				if is_on_floor():
+					ani.play("RUN")
+			else:
+				if is_on_floor():
+					ani.play("RUN")
+		elif(Input.get_joy_axis(0,0) < -0.3 or Input.is_action_pressed("ui_left")):
+			if(hSpeed > 100):
+				hSpeed -= (deacceleration * delta)
+				#if(touching_ground):
+			#		ani.play("TURN")
+			elif(hSpeed > -max_horizontal_speed):
+				hSpeed -= (acceleration * delta)
+				ani.flip_h = true
+				if is_on_floor():
+					ani.play("RUN")
+				if(anti_gravity):
+					if(is_on_ceiling()):
+						ani.play("RUN")
+			else:
+				if is_on_floor():
+					ani.play("RUN")
+		else:
+			if is_on_floor():
+				ani.play("IDLE")
+			if anti_gravity:
+				if(is_on_ceiling()):
+					ani.play("IDLE")
+			hSpeed -= min(abs(hSpeed),current_friction * delta) * sign(hSpeed)
+			
+		
+		if not jetpack_boost:
+			if(Input.is_action_just_pressed("ui_accept")) && jump_counter < 1 || Input.is_action_just_pressed("ui_up") and jump_counter < 1:
+					vSpeed = jump_height
+					jump_counter += 1
+		else:
+			if (Input.is_action_just_pressed("ui_accept")) && jump_counter < 2 || Input.is_action_just_pressed("ui_up") and jump_counter < 2:
 				vSpeed = jump_height
 				jump_counter += 1
-	else:
-		if (Input.is_action_just_pressed("ui_accept")) && jump_counter < 2 || Input.is_action_just_pressed("ui_up") and jump_counter < 2:
-			vSpeed = jump_height
-			jump_counter += 1
+			
 		
-	
-	if(equid):
-		if Input.is_action_just_pressed("toggle_boots"):
-			anti_gravity = not anti_gravity
+		if(equid):
+			if Input.is_action_just_pressed("toggle_boots"):
+				anti_gravity = not anti_gravity
+		
+		if(Input.is_action_just_pressed("dash")):
+			if(ani.flip_h == false):
+				hSpeed = 700
+			else:
+				hSpeed = -700
+	else:
+		ani.play("IDLE")
 
 func _on_Timer_timeout():
 	do_rewind = true
@@ -188,6 +260,9 @@ func _on_Timer_timeout():
 func _on_Norewind_body_entered(body):
 	do_rewind = false
 	anti_gravity = false
+	if(do_rewind):
+		equid = false
+	
 
 func _on_anti_gravity_boots_body_entered(body):
 	if "player" in body.name:
@@ -197,7 +272,21 @@ func _on_anti_gravity_boots_body_entered(body):
 
 func _on_detector_body_entered(body):
 	if "flying enemy" in body.name:
-		get_tree().reload_current_scene()
+		$DeathTimer.start()
+		fade_out($AudioStreamPlayer)
+		movable = false
+		hSpeed = 0
+		ani.play("IDLE")
+		
 		
 
 
+
+
+func _on_DeathTimer_timeout():
+	get_tree().reload_current_scene()
+
+
+func _on_Key_body_entered(body):
+	if "player" in body.name:
+		key_equid = true
