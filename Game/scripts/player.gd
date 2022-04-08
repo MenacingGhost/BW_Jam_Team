@@ -32,6 +32,7 @@ var movable = true
 var key_equid = false
 export var transition_duration = 1.00
 export var transition_type = 1 
+var collided = false
 
 func fade_out(stream_player):
 	tween_out.interpolate_property(stream_player, "volume_db", -7.5, -80, transition_duration, transition_type, Tween.EASE_IN, 0)
@@ -262,6 +263,7 @@ func _on_Norewind_body_entered(body):
 	anti_gravity = false
 	if(do_rewind):
 		equid = false
+	collided = true
 	
 
 func _on_anti_gravity_boots_body_entered(body):
@@ -290,3 +292,7 @@ func _on_DeathTimer_timeout():
 func _on_Key_body_entered(body):
 	if "player" in body.name:
 		key_equid = true
+
+
+func _on_Norewind_body_exited(body):
+	collided = false
