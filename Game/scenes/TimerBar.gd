@@ -1,4 +1,4 @@
-extends Area2D
+extends ColorRect
 
 
 # Declare member variables here. Examples:
@@ -8,21 +8,14 @@ extends Area2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$AnimationPlayer.play("m")
+	pass # Replace with function body.
 
 
-
-
-func _on_anti_gravity_boots_body_entered(body):
-	if "player" in body.name:
-		visible = false
-		
-
-
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
 
 
 func _on_Norewind_body_entered(body):
 	if "player" in body.name:
-		if(body.is_rewinding):
-			visible = true
-			
+		$AnimationPlayer.play("mainTime")

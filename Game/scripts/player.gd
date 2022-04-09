@@ -264,16 +264,24 @@ func _on_Norewind_body_entered(body):
 	if(do_rewind):
 		equid = false
 	collided = true
+	$Timer.wait_time = 16
 	
 
 func _on_anti_gravity_boots_body_entered(body):
 	if "player" in body.name:
 		equid = true
 		anti_gravity = true
+		print("jf")
 
 
 func _on_detector_body_entered(body):
 	if "flying enemy" in body.name:
+		$DeathTimer.start()
+		fade_out($AudioStreamPlayer)
+		movable = false
+		hSpeed = 0
+		ani.play("IDLE")
+	if "Walking_enemy" in body.name:
 		$DeathTimer.start()
 		fade_out($AudioStreamPlayer)
 		movable = false
@@ -296,3 +304,5 @@ func _on_Key_body_entered(body):
 
 func _on_Norewind_body_exited(body):
 	collided = false
+
+

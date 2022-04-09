@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://art/tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://objects/player.tscn" type="PackedScene" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://Key.tscn" type="PackedScene" id=6]
 [ext_resource path="res://door.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Norewind.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Walking_enemy.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/TimerBar.gd" type="Script" id=10]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -69,32 +71,38 @@ position = Vector2( -272, -123 )
 scale = Vector2( 0.6, -0.6 )
 
 [node name="player" parent="." instance=ExtResource( 2 )]
-position = Vector2( -96, 219 )
+position = Vector2( -108, 213 )
 
 [node name="flying enemy" parent="." instance=ExtResource( 4 )]
-position = Vector2( 306, 228 )
+position = Vector2( 753, 434 )
 
 [node name="flying enemy2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 504, -97 )
 
-[node name="anti_gravity_boots" parent="." instance=ExtResource( 3 )]
-position = Vector2( 407, 224 )
-scale = Vector2( 0.2, 0.2 )
+[node name="Walking_enemy" parent="." instance=ExtResource( 9 )]
+position = Vector2( 325, 234 )
 
 [node name="Key" parent="." instance=ExtResource( 6 )]
 position = Vector2( 280, -79 )
 scale = Vector2( 1.2, 1.2 )
 
+[node name="anti_gravity_boots" parent="." instance=ExtResource( 3 )]
+position = Vector2( 407, 222 )
+scale = Vector2( 0.2, 0.2 )
+
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource( 2 )
-margin_left = 5285.0
-margin_top = -1899.0
-margin_right = 5358.0
-margin_bottom = -1129.0
+margin_left = 5268.0
+margin_top = -1856.0
+margin_right = 5341.0
+margin_bottom = -1086.0
 rect_scale = Vector2( -144.698, 5.91109 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Position2D" type="Position2D" parent="."]
+position = Vector2( 407, 223 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -104,6 +112,7 @@ anchor_bottom = 1.0
 margin_top = 573.0
 margin_bottom = -2.0
 color = Color( 0, 0, 0, 1 )
+script = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -119,7 +128,11 @@ autostart = true
 [node name="Norewind" parent="." instance=ExtResource( 8 )]
 position = Vector2( -148, 193 )
 
-[connection signal="area_entered" from="anti_gravity_boots" to="player" method="_on_anti_gravity_boots_area_entered"]
-[connection signal="body_entered" from="anti_gravity_boots" to="player" method="_on_anti_gravity_boots_body_entered"]
 [connection signal="body_entered" from="Key" to="player" method="_on_Key_body_entered"]
+[connection signal="body_entered" from="anti_gravity_boots" to="player" method="_on_anti_gravity_boots_body_entered"]
+[connection signal="body_entered" from="Norewind" to="." method="_on_Norewind_body_entered"]
 [connection signal="body_entered" from="Norewind" to="player" method="_on_Norewind_body_entered"]
+[connection signal="body_entered" from="Norewind" to="Key" method="_on_Norewind_body_entered"]
+[connection signal="body_entered" from="Norewind" to="anti_gravity_boots" method="_on_Norewind_body_entered"]
+[connection signal="body_entered" from="Norewind" to="CanvasLayer/TimerBar" method="_on_Norewind_body_entered"]
+[connection signal="body_exited" from="Norewind" to="player" method="_on_Norewind_body_exited"]
